@@ -1,0 +1,13 @@
+
+
+//- utilized https://html-to-pug.com/ "error.html" to help with this pug file's writing
+//- code reference:  practice-using-data-pug-templates
+extends layout
+
+block content
+  h1 Server Error
+  p #{err.message}
+  br
+  p
+    a.button(href='/books') Home
+

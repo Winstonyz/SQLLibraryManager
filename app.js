@@ -9,13 +9,13 @@ var sequelize = require("./models").sequelize;
 
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var booksRouter = require('./routes/books');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -38,22 +38,53 @@ try {(async() =>{ //using async because: await is only valid in async function -
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/books', booksRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
+//Set up your static middleware for serving static files
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+app.use((req,res,next) => {
+  //Create a new Error()
+  const err = new Error();
+  //Set its status property to 404
+  err.status=404;
+  //Set its message property to a user friendly message
+  err.message = "Sorry! We couldn't find the page you were looking for.";
+  next(err);
 });
+
+//Set up the global error handler
+app.use((err, req, res, next) => {
+  if(err.status ===404){
+    res.status(404).render("page-not-found", {err});
+  }
+  //Set the err.status property to 500 if status isn't already defined
+  else{
+    err.status = 500
+    //Set the err.message property to a user friendly message if message isn't already defined
+    err.message = "Sorry! There was an unexpected error on the server.";
+    //Log the err object's status and message properties to the console
+    console.error('Sorry! There was an unexpected error on the server. ', err);
+    //Render the error template. Be sure that you're passing the {err} that you're updating as the second parameter in the render method. See the error.html file in the example-markup folder for an example of what this page should look like.
+    res.status(500).render("server-error", {err});
+  }
+
+});
+
+
+// // catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
+
+// // error handler
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render('includes/error');
+// });
 
 module.exports = app;

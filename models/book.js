@@ -25,26 +25,20 @@ module.exports = (sequelize, DataTypes) => {
   //the title and author values cannot be empty when creating a new book, or updating an existing one
   Book.init({
     title: {
-      //ensure type: title - string
       type: DataTypes.STRING,
-      //Set the allowNull property to false
       allowNull: false,
       validate: {
         notEmpty: {
-          // custom error message
-          msg: 'Sorry, the title field cannot be left empty',
+          msg: 'Title is required',
         }
       },
     },
     author: {
-      //ensure type: author - string
       type: DataTypes.STRING,
-      //Set the allowNull property to false
       allowNull: false,
       validate: {
         notEmpty: {
-          // custom error message
-          msg: 'Sorry, the author field cannot be left empty',
+          msg: 'Author is required',
         }
       },
     },

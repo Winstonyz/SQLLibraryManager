@@ -1,0 +1,16 @@
+
+//-Render the page-not-found template. Be sure that you're passing the {error} you're creating as 
+//-the second parameter in the render method. See the page_not_found.html file in the example-markup 
+//-folder for an example of what this page should look like.
+
+//- utilized https://html-to-pug.com/ "page-not-found.html" to help with this pug file's writing
+
+//- code reference:  practice-using-data-pug-templates
+extends layout
+
+block content
+  h1 Page Not Found
+  p #{err.message}
+  br
+  p
+    a.button(href='/books') Home

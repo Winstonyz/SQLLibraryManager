@@ -5,12 +5,24 @@ var router = express.Router();
 var Book = require('../models').Book //(book.js returns Book)
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  (async() =>{
-  const allBooks = await Book.findAll()
-  allBooks.then(books => res.json(books))
-  //res.render('index', { title: allBooks })})
 
-})});
+/* Handler function to wrap each route. */
+function asyncHandler(cb){
+  return async(req, res, next) => {
+    try {
+      await cb(req, res, next)
+    } catch(error){
+      // Forward error to the global error handler
+      next(error);
+    }
+  }
+}
 
+router.get('/', asyncHandler( async(req, res) => {
+  //Home route should redirect to the /books route
+
+  res.redirect('/books');
+  // const allBooks = await Book.findAll();
+  // res.json(allBooks);
+}));
 module.exports = router;

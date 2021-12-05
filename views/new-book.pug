@@ -1,0 +1,25 @@
+//- utilized https://html-to-pug.com/ AND "new-book.html" to help with this pug file's writing
+//- code reference: course material Breaking Your Project’s Templates into Partials
+
+extends layout.pug
+
+block content 
+  h1= title
+  include includes/error.pug
+  form(action="/books/new", method = "post")
+    p
+      label(for='title') Title
+      input#title(name='title' type='text')
+    p
+      label(for='author') Author
+      input#author(name='author' type='text')
+    p
+      label(for='genre') Genre
+      input#genre(name='genre' type='text')
+    p
+      label(for='year') Year
+      input#year(name='year' type='text')
+    p
+      input(type='submit' value='Create New Book')
+    p
+      a.button(href='/books') Cancel
