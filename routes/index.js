@@ -11,6 +11,6 @@ router.get('/', function(req, res, next) {
   allBooks.then(books => res.json(books))
   //res.render('index', { title: allBooks })})
 
-});
+})});
 
 module.exports = router;
