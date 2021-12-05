@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   (async() =>{
   const allBooks = await Book.findAll()
   allBooks.then(books => res.json(books))
-  res.render('index', { title: allBooks })})
+  //res.render('index', { title: allBooks })})
 
 });
 
