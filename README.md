@@ -1,2 +1,2 @@
 # SQLLibraryManager
-SQL Library Manager
+SQL Library Manager that has a book management system
